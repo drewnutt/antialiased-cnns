@@ -2,36 +2,18 @@
 
 <img src='https://richzhang.github.io/antialiased-cnns/resources/gifs2/video_00810.gif' align="right" width=300>
 
-**Making Convolutional Networks Shift-Invariant Again** <br>
+Based on **Making Convolutional Networks Shift-Invariant Again** <br>
 [Richard Zhang](https://richzhang.github.io/). In [ICML, 2019](https://arxiv.org/abs/1904.11486).
 
+Added **BlurPool3d** so can anti-alias Conv3d networks
+
 ### Quick & easy start
+Requires PyTorch version >= 1.10.2
 
-Run `pip install antialiased-cnns`
-
-```python
-import antialiased_cnns
-model = antialiased_cnns.resnet50(pretrained=True) 
-```
-<!-- model.load_state_dict(torch.load('resnet50_lpf4-994b528f.pth.tar')['state_dict']) # load weights; download it beforehand from https://www.dropbox.com/s/zqsudi0oz5ym8w8/resnet50_lpf4-994b528f.pth.tar?dl=0 -->
-
-<!-- Now you are antialiased! -->
-
-If you have a model already and want to antialias and continue training, copy your old weights over:
-
-``` python
-import torchvision.models as models
-old_model = models.resnet50(pretrained=True) # old (aliased) model
-antialiased_cnns.copy_params_buffers(old_model, model) # copy the weights over
-```
-
-If you want to modify your own model, use the BlurPool layer. More information about our provided models and how to use BlurPool is below.
-
-```python
-C = 10 # example feature channel size
-blurpool = antialiased_cnns.BlurPool(C, stride=2) # BlurPool layer; use to downsample a feature map
-ex_tens = torch.Tensor(1,C,128,128)
-print(blurpool(ex_tens).shape) # 1xCx64x64 tensor
+Run 
+```bash
+git clone git@github.com:drewnutt/antialiased-cnns.git
+pip install .
 ```
 
 **Updates**
