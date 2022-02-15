@@ -14,7 +14,7 @@ class ZeroPad3d(nn.ConstantPad3d):
     def __init__(self, padding):
         super(ZeroPad3d, self).__init__(padding,0)
 
-class BlurPool3D(nn.Module):
+class BlurPool3d(nn.Module):
     def __init__(self, channels, pad_type='reflect', filt_size=4, stride=2, pad_off=0):
         super(BlurPool, self).__init__()
         self.filt_size = filt_size
